@@ -1,5 +1,5 @@
-# Mohit's Math Game 
-**Live Lab Test #2 &bull; Java Web Application Development**
+# Mohit's Math Game – Math Whiz
+**Live Lab Test #2 • Java Web Application Development**
 
 Developed using **Java Servlet, JSP, JDBC, and MySQL Database**.
 
@@ -12,18 +12,18 @@ Developed using **Java Servlet, JSP, JDBC, and MySQL Database**.
 The game runs sequentially—one challenge at a time:
 1. **Challenge 1: Prime Number Verification (2 Marks)**
    - Player inputs a number.
-   - The server alters it with a random offset (&plusmn;1..10) to create a mutated challenge number.
+   - The server alters it with a random offset (±1..10) to create a mutated challenge number.
    - Player selects between **`1`** (indicating Prime) and **`0`** (indicating Not Prime).
    - Java method `MathService.isPrime()` verifies the answer.
 
 2. **Challenge 2: Modulus Operation (2 Marks)**
    - Player inputs Dividend & Divisor.
-   - The server alters them by (&plusmn;1..10) and calculates the remainder via `MathService.calculateMod()`.
+   - The server alters them by (±1..10) and calculates the remainder via `MathService.calculateMod()`.
    - Player selects the correct remainder from **4 Multiple Choice Options (MCQ)**.
 
 3. **Challenge 3: Trigonometry 1 (3 Marks)**
    - Player provides a **Normal Digit**, chooses a **Trigonometric Operator** (`sin`, `cos`, `tan`), and enters an **Angle** in degrees.
-   - Server alters the digit by (&plusmn;1..10) and computes:  
+   - Server alters the digit by (±1..10) and computes:  
      $$\text{Result} = \text{Mutated Digit} \times \text{Operator}(\text{Angle}^\circ)$$
    - Player selects the correct answer from **4 Multiple Choice Options (MCQ)**.
 
@@ -62,8 +62,48 @@ The game runs sequentially—one challenge at a time:
 
 ---
 
+## 04. Database Configuration & Schema
 
-## 04. Verification & Automated Test Cases (Task 09)
+### Database Setup Script (`database/math_whiz_db.sql`)
+```sql
+CREATE DATABASE IF NOT EXISTS math_whiz_db;
+USE math_whiz_db;
+
+DROP TABLE IF EXISTS game_scores;
+
+CREATE TABLE game_scores (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    player_name VARCHAR(100) NOT NULL,
+    score INT NOT NULL,
+    difficulty VARCHAR(20) DEFAULT 'NORMAL',
+    played_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Leaderboard Query:
+SELECT * FROM game_scores 
+ORDER BY score DESC, played_at ASC 
+LIMIT 10;
+```
+
+### Database Credentials (`dao/ScoreDAO.java`)
+Configured for standard XAMPP / local MySQL:
+- **URL:** `jdbc:mysql://localhost:3306/math_whiz_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC`
+- **Username:** `root`
+- **Password:** `""` *(empty string for default XAMPP MySQL)*
+
+---
+
+## 05. How to Run the Application
+
+1. Open **XAMPP Control Panel** and ensure **MySQL** is started.
+2. In phpMyAdmin (`http://localhost/phpmyadmin`), run `database/math_whiz_db.sql` to create `math_whiz_db` and `game_scores`.
+3. In IntelliJ / Eclipse / NetBeans, reload Maven and start **Apache Tomcat 10.1+**.
+4. Open your browser and navigate to:  
+   👉 `http://localhost:8080/MohitsMathGame_war_exploded/`
+
+---
+
+## 06. Verification & Automated Test Cases (Task 09)
 
 The project includes unit testing for all mathematical functions verifying edge cases:
 
@@ -80,7 +120,7 @@ The project includes unit testing for all mathematical functions verifying edge 
 
 ---
 
-## 05. Application Screenshots
+## 07. Application Screenshots
 
 ### Screen 1: Welcome Page
 ![Welcome Page](screenshots/home.jpg)
@@ -99,3 +139,19 @@ The project includes unit testing for all mathematical functions verifying edge 
 
 ---
 
+## 08. GitHub Submission Requirements Checklist
+
+- [x] Complete Java source code.
+- [x] Servlet + JSP implementation (Tomcat 10+ compatible).
+- [x] JDBC database connectivity with MySQL (`ScoreDAO.java`).
+- [x] Database SQL file (`database/math_whiz_db.sql`).
+- [x] Four-question mathematical game (10 marks).
+- [x] Score calculation and database persistence.
+- [x] Top 10 leaderboard with sorting.
+- [x] Complete `README.md` with instructions & rules.
+- [x] Actual application screenshots included in `screenshots/`.
+
+**Submission URL Format:**
+```
+https://github.com/username/repository/tree/main/MohitsMathGame
+```
