@@ -1,4 +1,4 @@
-# Mohit's Math Game – Math Whiz
+# Mohit's Math Game 
 **Live Lab Test #2 &bull; Java Web Application Development**
 
 Developed using **Java Servlet, JSP, JDBC, and MySQL Database**.
