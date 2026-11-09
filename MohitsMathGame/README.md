@@ -62,48 +62,8 @@ The game runs sequentially—one challenge at a time:
 
 ---
 
-## 04. Database Configuration & Schema
 
-### Database Setup Script (`database/math_whiz_db.sql`)
-```sql
-CREATE DATABASE IF NOT EXISTS math_whiz_db;
-USE math_whiz_db;
-
-DROP TABLE IF EXISTS game_scores;
-
-CREATE TABLE game_scores (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    player_name VARCHAR(100) NOT NULL,
-    score INT NOT NULL,
-    difficulty VARCHAR(20) DEFAULT 'NORMAL',
-    played_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Leaderboard Query:
-SELECT * FROM game_scores 
-ORDER BY score DESC, played_at ASC 
-LIMIT 10;
-```
-
-### Database Credentials (`dao/ScoreDAO.java`)
-Configured for standard XAMPP / local MySQL:
-- **URL:** `jdbc:mysql://localhost:3306/math_whiz_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC`
-- **Username:** `root`
-- **Password:** `""` *(empty string for default XAMPP MySQL)*
-
----
-
-## 05. How to Run the Application
-
-1. Open **XAMPP Control Panel** and ensure **MySQL** is started.
-2. In phpMyAdmin (`http://localhost/phpmyadmin`), run `database/math_whiz_db.sql` to create `math_whiz_db` and `game_scores`.
-3. In IntelliJ / Eclipse / NetBeans, reload Maven and start **Apache Tomcat 10.1+**.
-4. Open your browser and navigate to:  
-   👉 `http://localhost:8080/MohitsMathGame_war_exploded/`
-
----
-
-## 06. Verification & Automated Test Cases (Task 09)
+## 04. Verification & Automated Test Cases (Task 09)
 
 The project includes unit testing for all mathematical functions verifying edge cases:
 
@@ -120,7 +80,7 @@ The project includes unit testing for all mathematical functions verifying edge 
 
 ---
 
-## 07. Application Screenshots
+## 05. Application Screenshots
 
 ### Screen 1: Welcome Page
 ![Welcome Page](screenshots/home.jpg)
@@ -139,19 +99,3 @@ The project includes unit testing for all mathematical functions verifying edge 
 
 ---
 
-## 08. GitHub Submission Requirements Checklist
-
-- [x] Complete Java source code.
-- [x] Servlet + JSP implementation (Tomcat 10+ compatible).
-- [x] JDBC database connectivity with MySQL (`ScoreDAO.java`).
-- [x] Database SQL file (`database/math_whiz_db.sql`).
-- [x] Four-question mathematical game (10 marks).
-- [x] Score calculation and database persistence.
-- [x] Top 10 leaderboard with sorting.
-- [x] Complete `README.md` with instructions & rules.
-- [x] Actual application screenshots included in `screenshots/`.
-
-**Submission URL Format:**
-```
-https://github.com/username/repository/tree/main/MohitsMathGame
-```
